@@ -20,7 +20,7 @@ public class Lattice {
 	public Lattice(int size) {
 		this.size = size;
 		box = new int[size][size];
-
+	
 	    for (int i = 0; i < size; i++) {
 	      for (int j = 0; j < size; j++) {
 	        box[i][j] = 0;
