@@ -15,15 +15,15 @@
  */
 public class SIR {
 
-	 /**
-	  * stateChanged
-	  * @param  p Probability, of state change, as a double.
-	  * @return Whether or not the state was changed.
-	  */
-	  public static boolean stateChanged(double p) {
-	    boolean stateChanged = false;
-	    if (Math.random() <= p)
-	    	stateChanged = true;   
-	    return stateChanged; 
-	  }
+ /**
+  * stateChanged
+  * @param  p Probability, of state change, as a double.
+  * @return Whether or not the state was changed.
+  */
+  public static boolean stateChanged(double p) {
+    boolean stateChanged = false;
+    if (Math.random() <= p)
+    	stateChanged = true;   
+    return stateChanged; 
+  }
 }

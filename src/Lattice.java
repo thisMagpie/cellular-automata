@@ -16,33 +16,33 @@
 public class Lattice {
 	int size;
 	int[][] box;
-	
-	public Lattice(int size) {
-		this.size = size;
-		box = new int[size][size];
-	
-	    for (int i = 0; i < size; i++) {
-	      for (int j = 0; j < size; j++) {
-	        box[i][j] = 0;
-	        if (SIR.stateChanged(0.5)) box[i][j] = 1;
-	        else if  (SIR.stateChanged(0.5)) box[i][j] = 2;
-	      }
-	   }
-	}
 
-  /**
-    * picks
-    * @length  The desired length for the array
-    * @return  The coordinates of the picked spin
-    */
-	public int[] picks(int length) {
-	     int[] array = new int[length];
-	     for (int i = 0; i < length; i++)
-	       array[i] = (int) (Math.random() * size); 
-	     return array;
-	}
-	
-	public int[][] getLattice(){
-		return box;
-	}
+public Lattice(int size) {
+	this.size = size;
+	box = new int[size][size];
+
+    for (int i = 0; i < size; i++) {
+      for (int j = 0; j < size; j++) {
+        box[i][j] = 0;
+        if (SIR.stateChanged(0.5)) box[i][j] = 1;
+        else if  (SIR.stateChanged(0.5)) box[i][j] = 2;
+      }
+   }
+}
+
+ /**
+  * @param length of array as an integer
+  * @return The coordinates of the picked spin as a 1D
+  *         array of ints
+  */
+  public int[] picks(int length) {
+    int[] array = new int[length];
+    for (int i = 0; i < length; i++)
+      array[i] = (int) (Math.random() * size); 
+    return array;
+  }
+
+  public int[][] getLattice(){
+    return box;
+  }
 }
