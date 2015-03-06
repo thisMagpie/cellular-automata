@@ -23,7 +23,7 @@ public class SIR {
   public static boolean stateChanged(double p) {
     boolean stateChanged = false;
     if (Math.random() <= p)
-    	stateChanged = true;   
+      stateChanged = true;
     return stateChanged; 
   }
 }
