@@ -26,4 +26,31 @@ public class SIR {
       stateChanged = true;
     return stateChanged; 
   }
+
+ /**
+  * stateChanged
+  * @param  box the lattice as a 2-D array of ints
+  * @param p1 the probability, p1 as a double
+  * @param p2 the probability, p2 as a double
+  * @param p3 the probability, p3 as a double
+  * 
+  * @return Whether or not the state was changed.
+  */
+  public static int[][] update(int[][] box,
+                               double p1,
+                               double p2,
+                               double p3,
+                               int m,
+                               int n) {
+
+    if (stateChanged(p1) & box[m][n] == 0) {
+      box[m][n] = 1;
+    } else if (stateChanged(p2) & box[m][n] == 1) {
+        box[m][n] = 2;
+    } else if (stateChanged(p3) & box[m][n] == 2) {
+        box[m][n] = 0;
+    }
+    return box;
+  }
+
 }
