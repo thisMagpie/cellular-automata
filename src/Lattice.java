@@ -17,18 +17,24 @@ public class Lattice {
 	int size;
 	int[][] box;
 
-public Lattice(int size) {
+  public Lattice(int size, double p1, double p2, double p3) {
 	this.size = size;
 	box = new int[size][size];
 
     for (int i = 0; i < size; i++) {
       for (int j = 0; j < size; j++) {
-        box[i][j] = 0;
-        if (SIR.stateChanged(0.5)) box[i][j] = 1;
-        else if  (SIR.stateChanged(0.5)) box[i][j] = 2;
+        if (SIR.stateChanged(p1)) box[i][j] = 0;
+        else if (SIR.stateChanged(p2)) box[i][j] = 1;
+        else if  (SIR.stateChanged(p3)) box[i][j] = 2;
       }
-   }
-}
+    }
+  }
+
+  public Lattice(){
+    this.getLattice();
+  }
+  
+
 
  /**
   * @param length of array as an integer

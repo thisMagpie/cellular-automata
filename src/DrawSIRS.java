@@ -32,7 +32,7 @@ public class DrawSIRS extends Canvas {
   */
   DrawSIRS (int size) {
     this.size = size;
-    lattice = new Lattice(size);
+    lattice = new Lattice();
     Frame frame = new Frame("SIRS Simulation");
     Button button = new Button("Stop Simulation");
     Panel panel = new Panel();
