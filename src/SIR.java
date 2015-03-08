@@ -36,7 +36,7 @@ public class SIR {
   * 
   * @return Whether or not the state was changed.
   */
-  public static int[][] update(int[][] box,
+  public static int update(int[][] box,
                                double p1,
                                double p2,
                                double p3,
@@ -50,7 +50,18 @@ public class SIR {
     } else if (stateChanged(p3) & box[m][n] == 2) {
         box[m][n] = 0;
     }
-    return box;
+    return box[m][n];
   }
 
+  /**
+   * @param length of array as an integer
+   * @return The coordinates of the picked spin as a 1D
+   *         array of ints
+   */
+   public static int[] picks(int length, int size) {
+     int[] array = new int[length];
+     for (int i = 0; i < length; i++)
+       array[i] = (int) (Math.random() * size); 
+     return array;
+   }
 }

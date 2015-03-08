@@ -33,20 +33,6 @@ public class Lattice {
   public Lattice(){
     this.getLattice();
   }
-  
-
-
- /**
-  * @param length of array as an integer
-  * @return The coordinates of the picked spin as a 1D
-  *         array of ints
-  */
-  public int[] picks(int length) {
-    int[] array = new int[length];
-    for (int i = 0; i < length; i++)
-      array[i] = (int) (Math.random() * size); 
-    return array;
-  }
 
   public int[][] getLattice(){
     return box;

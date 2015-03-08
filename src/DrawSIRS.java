@@ -32,7 +32,6 @@ public class DrawSIRS extends Canvas {
   */
   DrawSIRS (int size) {
     this.size = size;
-    lattice = new Lattice();
     Frame frame = new Frame("SIRS Simulation");
     Button button = new Button("Stop Simulation");
     Panel panel = new Panel();
@@ -63,22 +62,7 @@ public class DrawSIRS extends Canvas {
     graphics = image.getGraphics();
 
     // Initialise box
-    box = lattice.getLattice();
-    for (int i = 0; i < size; i++) {
-      for (int j = 0; j < size; j++) {
-          paintPixels(i,j);
-      }
-    }
     frame.setVisible(true);
-  }
-
- /**
-  * run:
-  * @param i the ith coordinate of a 2D array
-  * @param j the jth coordinate of a 2D array
-  */
-  public void run(int i, int j) {
-    paintPixels(i,j);
   }
 
  /**
@@ -105,9 +89,9 @@ public class DrawSIRS extends Canvas {
   * @param i The ith dims of the box array as an int
   * @param j The jth dims of the box array as an int
   */
-  public void paintPixels(int i, int j) {
-    if (box[i][j] == 0) graphics.setColor(new Color(240,240,255));
-    else if (box[i][j] == 1) graphics.setColor(new Color(30,124,25));
+  public void paintPixels(int sir, int i, int j) {
+    if (sir == 0) graphics.setColor(new Color(240,240,255));
+    else if (sir == 1) graphics.setColor(new Color(30,124,25));
     else graphics.setColor(new Color(30,0,25));
       graphics.fillRect(i * pixelDims,
                         j * pixelDims,
