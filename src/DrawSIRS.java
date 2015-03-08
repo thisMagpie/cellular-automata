@@ -74,19 +74,11 @@ public class DrawSIRS extends Canvas {
 
  /**
   * run:
-  *     Method to call for running initialised simulation
-  *     CTRL+C to exit.
+  * @param i the ith coordinate of a 2D array
+  * @param j the jth coordinate of a 2D array
   */
-  public void run() {
-    timerOn = true;
-    while (timerOn) {
-      lattice.picks(2);
-          // check if energy meets threshold
-          // if picked is S then S -> I with p1
-          // if picked is I then I -> R with p2
-          // if picked is R then R -> S with p3
-          // call paintPixels;
-    }
+  public void run(int i, int j) {
+    paintPixels(i,j);
   }
 
  /**
