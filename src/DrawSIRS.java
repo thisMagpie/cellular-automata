@@ -28,7 +28,7 @@ public class DrawSIRS extends Canvas {
  /**
   * DrawSIRS:
   *           Class constructor
-  *           @param size - The size of the lattice
+  * @param size - The size of the lattice
   */
   DrawSIRS (int size) {
     this.size = size;
