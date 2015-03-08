@@ -94,7 +94,7 @@ public class DrawSIRS extends Canvas {
   public void paintPixels(int sir, int i, int j) {
     if (sir == 0) graphics.setColor(new Color(233,205,23));
     else if (sir == 1) graphics.setColor(new Color(233,23,58));
-    else graphics.setColor(new Color(38,182,101));
+    else graphics.setColor(new Color(38,72,182));
       graphics.fillRect(i * pixelDims,
                         j * pixelDims,
                         pixelDims,
