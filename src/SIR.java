@@ -15,7 +15,9 @@
  */
 public class SIR {
 
- /**
+  private int[][] box;
+
+  /**
   * stateChanged
   * @param  p Probability, of state change, as a double.
   * @return Whether or not the state was changed.
@@ -27,6 +29,26 @@ public class SIR {
     return stateChanged; 
   }
 
+ /**
+  * setLattice
+  * @param  p Probability, of state change, as a double.
+  * @return Whether or not the state was changed.
+  */
+  public void setLattice(int size, double p1, double p2, double p3) {
+	box = new int[size][size];
+
+    for (int i = 0; i < size; i++) {
+      for (int j = 0; j < size; j++) {
+        if (SIR.stateChanged(p1)) box[i][j] = 0;
+        else if (SIR.stateChanged(p2)) box[i][j] = 1;
+        else if  (SIR.stateChanged(p3)) box[i][j] = 2;
+      }
+    }
+  }
+
+  public int[][] getLattice(){
+    return box;
+  }
  /**
   * stateChanged
   * @param  box the lattice as a 2-D array of ints
@@ -65,19 +87,15 @@ public class SIR {
      return array;
    }
    /**
-    * metropolis
+    * isInfected
     *
-    * @box     The box of size, containing the spins as 2D integer array
     * @m       The mth coordinate of the selected spin
     * @n       The nth coordinate of the selected spin
-    * @return  The combined energy of the selected spin and it's
-    *          top, bottom, left and right nearest neighbours minus
-    *          the combined energy of the selected spin flipped plus
-    *          its top, bottom, left and right nearest neighbours
-    *          i.e. 2.0*J*sum*box[m][n] with J=1
+    * @return  Whether the nearest neighbour is infected
+    *          or not
     */
    public static boolean isInfected(int[][] box, int m, int n) {
-     int max = box.length-1;
+     int max = box.length - 1;
      boolean isInfected = false;
      // spacial symmetry
      if (m == 0) {

@@ -18,7 +18,6 @@ import java.awt.event.*;
 
 @SuppressWarnings("serial")
 public class DrawSIRS extends Canvas {
-	Lattice lattice; 
 	int size, dims,pixelDims;
 	Graphics graphics;
 	Image image;

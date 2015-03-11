@@ -6,9 +6,11 @@ public class Run {
     double p1 = Double.parseDouble(args[1]);
     double p2 = Double.parseDouble(args[2]);
     double p3 = Double.parseDouble(args[3]);
-    Lattice lattice = new Lattice(size, p1, p2, p3);
+
+    SIR sir = new SIR();
+    sir.setLattice(size, p1, p2, p3);
     DrawSIRS draw = new DrawSIRS(size);
-    int[][] box = lattice.getLattice();
+    int[][] box = sir.getLattice();
 
     for (int i = 0; i < size; i++) {
       for (int j = 0; j < size; j++) {
