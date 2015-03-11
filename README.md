@@ -12,3 +12,6 @@ susceptible, infected and recovered states.
 
 `java Run 100 0.8 0.1 0.01`
 
+## Absorbing
+
+`java Run 100 0.3 0.5 0.2`
