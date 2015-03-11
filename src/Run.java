@@ -31,11 +31,11 @@ public class Run {
                           spins[0],
                           spins[1]);
       draw.repaint();
-      try {
-        Thread.sleep(2);
+      /*try {
+        Thread.sleep(1);
       } catch (InterruptedException e) {
         e.getCause();
-      }
+      }*/
     }
   }
 }

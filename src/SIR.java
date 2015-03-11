@@ -43,7 +43,7 @@ public class SIR {
                                int m,
                                int n) {
 
-    if (stateChanged(p1) & box[m][n] == 0) {
+    if (stateChanged(p1) & box[m][n] == 0 & isInfected(box, m, n)) {
       box[m][n] = 1;
     } else if (stateChanged(p2) & box[m][n] == 1) {
         box[m][n] = 2;
@@ -63,5 +63,56 @@ public class SIR {
      for (int i = 0; i < length; i++)
        array[i] = (int) (Math.random() * size); 
      return array;
+   }
+   /**
+    * metropolis
+    *
+    * @box     The box of size, containing the spins as 2D integer array
+    * @m       The mth coordinate of the selected spin
+    * @n       The nth coordinate of the selected spin
+    * @return  The combined energy of the selected spin and it's
+    *          top, bottom, left and right nearest neighbours minus
+    *          the combined energy of the selected spin flipped plus
+    *          its top, bottom, left and right nearest neighbours
+    *          i.e. 2.0*J*sum*box[m][n] with J=1
+    */
+   public static boolean isInfected(int[][] box, int m, int n) {
+     int max = box.length-1;
+     boolean isInfected = false;
+     // spacial symmetry
+     if (m == 0) {
+       if(box[max][n] == 1) // no more room to decrease, check on other side of box
+         isInfected = true;
+     } else {
+       if (box[m - 1][n] == 1) // look left
+         isInfected = true;
+     }
+
+     if (m == max) {
+       if (box[0][n] == 1) // no more room to increase, check on other side of box
+         isInfected = true;
+     } else {
+       if(box[m + 1][n] == 1) // look right
+         isInfected = true;
+     }
+
+     if (n == 0) {
+       if (box[m][max] == 1)  // no more room to decrease, check on other side of box
+         isInfected = true;
+     } else {
+       if (box[m][n - 1] == 1) // look upwards
+       isInfected = true;
+     }
+
+     if (n == max) {
+       if (box[m][0] == 1) // no more room to increase, check on other side of box
+         isInfected = true;
+     } else {
+       if (box[m][n + 1] == 1) // look downwards
+         isInfected = true;
+     }
+
+     //spin flipped state - original state i.e. 2.0*J*sum*box[m][n] with J=1
+     return isInfected;
    }
 }
