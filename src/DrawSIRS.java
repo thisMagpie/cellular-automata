@@ -20,8 +20,6 @@ import java.awt.event.*;
 public class DrawSIRS extends Canvas {
 	Lattice lattice; 
 	int size, dims,pixelDims;
-	int[][] box;
-	boolean timerOn;
 	Graphics graphics;
 	Image image;
 
