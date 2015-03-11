@@ -112,7 +112,6 @@ public class SIR {
          isInfected = true;
      }
 
-     //spin flipped state - original state i.e. 2.0*J*sum*box[m][n] with J=1
      return isInfected;
    }
 }
