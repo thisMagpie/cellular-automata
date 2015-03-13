@@ -1,3 +1,19 @@
+/**
+ * Copyright (c) 2015 Magdalen Berns <m.berns@ed.ac.uk>
+ *
+ * This program is free software: you can redistribute it and/or modify
+ * it under the terms of the GNU General Public License as published by
+ * the Free Software Foundation, either version 3 of the License, or
+ * (at your option) any later version.
+ * This program is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
+ * GNU General Public License for more details.
+ * You should have received a copy of the GNU General Public License
+ * along with this program. If not, see <http://www.gnu.org/licenses/>
+ *
+ */
+import java.io.*;
 
 public class Run {
 
@@ -6,38 +22,59 @@ public class Run {
     double p1 = Double.parseDouble(args[1]);
     double p2 = Double.parseDouble(args[2]);
     double p3 = Double.parseDouble(args[3]);
+    System.out.println("\nWriting to file... ");
 
     SIR sir = new SIR();
     sir.setLattice(size, p1, p2, p3);
-    DrawSIRS draw = new DrawSIRS(size);
+
     int[][] box = sir.getLattice();
 
-    for (int i = 0; i < size; i++) {
-      for (int j = 0; j < size; j++) {
-          draw.paintPixels(box[i][j], i,j);
-          draw.repaint();
-      }
-    }
-
-    boolean run = true;
-    run(draw, run, size, box, p1, p2,p3);
-
-    int noSweeps = 10; // number of times to sweep through
+    int noSweeps = 20; // number of times to sweep through
     int eq = 100; // number of equilibration cycles
     int n = 100; // number of data points to measure
+    double iValue = 0.0;
+    double[] I = new double[noSweeps];
+    double[] t = new double[noSweeps];
+    double tCount = 0.0;
 
     for (int i = 0; i < noSweeps; i++) {
+      tCount += 0.1;
       box = sweep(box, p1, p2, p3);
       for (int j = 0; j < eq; j ++)
         box = sweep(box, p1, p2, p3);
       // Start taking measurements
+      
       for (int j = 0; j <= n; j++) {
         sweep(box, p1, p2, p3);
-        if(j%10==0)
-        n++;
-        // calculate mean
+        if(j%10==0) {
+          iValue += SIR.I(box);
+          n++;
+        }
       }
+      iValue /= n;
+      I[i] = iValue;
+      t[i] = tCount;
+      
     }
+    try {
+        PrintWriter ibyn = IO.writeTo("I.dat");
+        ArrayIO.writeDoubles(ibyn, t, I);
+        System.out.println("\nFile written.");
+     } catch (Exception e) {
+       e.printStackTrace();
+     }
+    
+    // Create and Show GUI
+    DrawSIRS draw = new DrawSIRS(size);
+    for (int i = 0; i < size; i++) {
+        for (int j = 0; j < size; j++) {
+            draw.paintPixels(box[i][j], i,j);
+            draw.repaint();
+        }
+      }
+
+      boolean run = true;
+      run(draw, run, size, box, p1, p2,p3);
   }
 
   public static void run(DrawSIRS draw,
