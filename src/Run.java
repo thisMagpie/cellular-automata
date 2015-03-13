@@ -42,13 +42,13 @@ public class Run {
 
       for (int i = 0; i < noSweeps; i++) {
         tCount += 1.0;
-        box = sweep(box, p1, p2, p3);
+        box = SIR.sweep(box, p1, p2, p3);
         for (int j = 0; j < eq; j ++)
-          box = sweep(box, p1, p2, p3);
+          box = SIR.sweep(box, p1, p2, p3);
 
         // Start taking measurements
         for (int j = 0; j <= n; j++) {
-          sweep(box, p1, p2, p3);
+          SIR.sweep(box, p1, p2, p3);
           if(j%10==0) {
             iValue += SIR.I(box);
             n++;
@@ -57,7 +57,7 @@ public class Run {
         iValue /= n;
         I[i] = iValue;
         t[i] = tCount;
-        sigma[i] =  (iValue - (iValue * iValue)) / (box.length * box.length);
+        sigma[i] =  (iValue - (iValue * iValue)) / (box.length);
       }
       try {
         PrintWriter ibyn = IO.writeTo("I.dat");
@@ -102,24 +102,5 @@ public class Run {
                             spins[1]);
         draw.repaint();
       }
-  }
-
-  public static int[][] sweep(int[][] box,
-                           double p1,
-                           double p2,
-                           double p3) {
-
-  for (int i = 0; i < box.length; i++) {
-    for (int j = 0; j < box.length; j++) {
-       int[] spins = SIR.picks(2, box.length);
-       box[spins[0]][spins[1]] = SIR.update(box,
-                                            p1,
-                                            p2,
-                                            p3,
-                                            spins[0],
-                                            spins[1]);
-      }
-    }
-    return box;
   }
 }

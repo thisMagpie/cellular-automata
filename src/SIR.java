@@ -134,13 +134,32 @@ public class SIR {
    }
 
    public static double I(int[][] box) {
-    double I = 0.0;
+    int I = 0;
     for (int i = 0; i < box.length - 1; i++) {
       for (int j = 0; j < box.length - 1; j++) {
-        if (isInfected(box, i, j)) 
-          I += box[i][j];
+        if (box[i][j] == 1) 
+          I += 1; 
       }
     }
     return I;
+  }
+
+   public static int[][] sweep(int[][] box,
+                               double p1,
+                               double p2,
+                               double p3) {
+
+     for (int i = 0; i < box.length; i++) {
+       for (int j = 0; j < box.length; j++) {
+         int[] spins = SIR.picks(2, box.length);
+         box[spins[0]][spins[1]] = update(box,
+                                          p1,
+                                          p2,
+                                          p3,
+                                          spins[0],
+                                          spins[1]);
+      }
+    }
+    return box;
   }
 }
