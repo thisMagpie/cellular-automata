@@ -16,13 +16,20 @@
 import java.awt.*;
 import java.awt.event.*;
 
-@SuppressWarnings("serial")
-public class DrawSIRS extends Canvas {
-	int size, dims,pixelDims;
-	Graphics graphics;
-	Image image;
+import javax.swing.BorderFactory;
+import javax.swing.JLabel;
+import javax.swing.JSlider;
+import javax.swing.Timer;
+import javax.swing.event.ChangeEvent;
+import javax.swing.event.ChangeListener;
 
- /**
+@SuppressWarnings("serial")
+public class DrawSIRS extends Canvas implements ChangeListener{
+  int size, dims,pixelDims;
+  Graphics graphics;
+  Image image;
+  Timer timer; //TODO implement actionListener
+  /**
   * DrawSIRS:
   *           Class constructor
   * @param size - The size of the lattice
@@ -30,7 +37,33 @@ public class DrawSIRS extends Canvas {
   DrawSIRS (int size) {
     this.size = size;
     Frame frame = new Frame("SIRS Simulation");
-    Button button = new Button("Stop Simulation");
+
+    //Create labels
+    JLabel p1SliderLabel = new JLabel("p1", JLabel.CENTER);
+    p1SliderLabel.setAlignmentX(Component.CENTER_ALIGNMENT);
+    JLabel p2SliderLabel = new JLabel("p2", JLabel.CENTER);
+    p2SliderLabel.setAlignmentX(Component.CENTER_ALIGNMENT);
+
+    //Create the sliders.
+    JSlider p1Slider = new JSlider(JSlider.HORIZONTAL, 0, 1, 0);
+    JSlider p2Slider = new JSlider(JSlider.HORIZONTAL, 0, 1, 0);
+
+    p1Slider.addChangeListener(this);
+    p2Slider.addChangeListener(this);
+
+    p1Slider.setMajorTickSpacing(10);
+    p1Slider.setMinorTickSpacing(1);
+    p1Slider.setPaintTicks(true);
+    p1Slider.setPaintLabels(true);
+    p1Slider.setBorder(BorderFactory.createEmptyBorder(0,0,5,0));
+    p2Slider.setMajorTickSpacing(10);
+    p2Slider.setMinorTickSpacing(1);
+    p2Slider.setPaintTicks(true);
+    p2Slider.setPaintLabels(true);
+    p2Slider.setBorder(BorderFactory.createEmptyBorder(0,0,5,0));
+    Font font = new Font("Serif", Font.BOLD, 20);
+    p1Slider.setFont(font);
+    p2Slider.setFont(font);
     Panel panel = new Panel();
 
     pixelDims = 4;
@@ -47,13 +80,12 @@ public class DrawSIRS extends Canvas {
     setSize(dims,dims);
     Panel controlPanel = new Panel();
     frame.add(controlPanel,BorderLayout.SOUTH);
+    controlPanel.add(p1SliderLabel);
+    controlPanel.add(p1Slider);
+    controlPanel.add(p2SliderLabel);
+    controlPanel.add(p2Slider);
 
-    button.addActionListener(new ActionListener() {
-      public void actionPerformed(ActionEvent e) {
-      }
-    });
-
-    controlPanel.add(button);
+    //timer = new Timer(10, this); TODO implement actionListener
     frame.pack();
     image = createImage(dims,dims);
     graphics = image.getGraphics();
@@ -96,6 +128,26 @@ public class DrawSIRS extends Canvas {
                         j * pixelDims,
                         pixelDims,
                         pixelDims);
+  }
+
+  public void start() {
+      timer.start();
+  }
+
+  public void stop() {
+      //Stop the animating thread.
+      timer.stop();
+  }
+  /**
+   * stateChanged: 
+   *              Slider Listener
+   * @param e event as a ChangeEvent instance
+   */
+  public void stateChanged(ChangeEvent e) {
+    JSlider source = (JSlider)e.getSource();
+    if (!source.getValueIsAdjusting()) {
+      start();
+    }
   }
 }
 
