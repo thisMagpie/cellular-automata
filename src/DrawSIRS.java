@@ -24,7 +24,7 @@ import javax.swing.event.ChangeEvent;
 import javax.swing.event.ChangeListener;
 
 @SuppressWarnings("serial")
-public class DrawSIRS extends Canvas implements ChangeListener{
+public class DrawSIRS extends Canvas implements ChangeListener {
   int size, dims,pixelDims;
   Graphics graphics;
   Image image;
@@ -43,27 +43,42 @@ public class DrawSIRS extends Canvas implements ChangeListener{
     p1SliderLabel.setAlignmentX(Component.CENTER_ALIGNMENT);
     JLabel p2SliderLabel = new JLabel("p2", JLabel.CENTER);
     p2SliderLabel.setAlignmentX(Component.CENTER_ALIGNMENT);
+    JLabel p3SliderLabel = new JLabel("p3", JLabel.CENTER);
+    p3SliderLabel.setAlignmentX(Component.CENTER_ALIGNMENT);
+
 
     //Create the sliders.
     JSlider p1Slider = new JSlider(JSlider.HORIZONTAL, 0, 1, 0);
     JSlider p2Slider = new JSlider(JSlider.HORIZONTAL, 0, 1, 0);
+    JSlider p3Slider = new JSlider(JSlider.HORIZONTAL, 0, 1, 0);
 
     p1Slider.addChangeListener(this);
     p2Slider.addChangeListener(this);
+    p3Slider.addChangeListener(this);
 
     p1Slider.setMajorTickSpacing(10);
     p1Slider.setMinorTickSpacing(1);
     p1Slider.setPaintTicks(true);
     p1Slider.setPaintLabels(true);
-    p1Slider.setBorder(BorderFactory.createEmptyBorder(0,0,5,0));
+    p1Slider.setBorder(BorderFactory.createEmptyBorder(0,0,1,0));
+
     p2Slider.setMajorTickSpacing(10);
     p2Slider.setMinorTickSpacing(1);
     p2Slider.setPaintTicks(true);
     p2Slider.setPaintLabels(true);
-    p2Slider.setBorder(BorderFactory.createEmptyBorder(0,0,5,0));
+    p2Slider.setBorder(BorderFactory.createEmptyBorder(0,0,1,0));
+
+    p3Slider.setMajorTickSpacing(10);
+    p3Slider.setMinorTickSpacing(1);
+    p3Slider.setPaintTicks(true);
+    p3Slider.setPaintLabels(true);
+    p3Slider.setBorder(BorderFactory.createEmptyBorder(0,0,5,0));
+    
     Font font = new Font("Serif", Font.BOLD, 20);
     p1Slider.setFont(font);
     p2Slider.setFont(font);
+    p3Slider.setFont(font);
+
     Panel panel = new Panel();
 
     pixelDims = 4;
@@ -84,6 +99,8 @@ public class DrawSIRS extends Canvas implements ChangeListener{
     controlPanel.add(p1Slider);
     controlPanel.add(p2SliderLabel);
     controlPanel.add(p2Slider);
+    controlPanel.add(p3SliderLabel);
+    controlPanel.add(p3Slider);
 
     //timer = new Timer(10, this); TODO implement actionListener
     frame.pack();
