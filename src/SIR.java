@@ -132,4 +132,16 @@ public class SIR {
 
      return isInfected;
    }
+
+   public static double[] I(int[][] box) {
+    double[] I = new double[box.length*2];
+    int count = 0;
+    for (int i = 0; i < box.length - 1; i++) {
+      for (int j = 0; j < box.length - 1; j++) {
+        I[count] = box[i][j];
+        count++;
+      }
+    }
+    return I;
+  }
 }
