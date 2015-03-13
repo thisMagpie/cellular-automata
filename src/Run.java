@@ -68,7 +68,7 @@ public class Run {
       } catch (Exception e) {
         e.printStackTrace();
       }
-    } else {
+    } else if(choice.equals("gui")) {
       // Create and Show GUI
       DrawSIRS draw = new DrawSIRS(size);
       for (int i = 0; i < size; i++) {
