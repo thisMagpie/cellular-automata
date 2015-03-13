@@ -18,13 +18,14 @@ import java.awt.event.*;
 
 import javax.swing.BorderFactory;
 import javax.swing.JLabel;
+import javax.swing.JPanel;
 import javax.swing.JSlider;
 import javax.swing.Timer;
 import javax.swing.event.ChangeEvent;
 import javax.swing.event.ChangeListener;
 
 @SuppressWarnings("serial")
-public class DrawSIRS extends Canvas implements ChangeListener {
+public class DrawSIRS extends JPanel implements ChangeListener {
   int size, dims,pixelDims;
   Graphics graphics;
   Image image;
@@ -92,8 +93,8 @@ public class DrawSIRS extends Canvas implements ChangeListener {
 
     frame.add(panel);
     panel.add(this);
-    setSize(dims,dims);
-    Panel controlPanel = new Panel();
+    setPreferredSize(new Dimension(dims,dims));
+    JPanel controlPanel = new JPanel();
     frame.add(controlPanel,BorderLayout.SOUTH);
     controlPanel.add(p1SliderLabel);
     controlPanel.add(p1Slider);
