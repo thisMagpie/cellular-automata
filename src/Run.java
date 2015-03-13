@@ -32,9 +32,10 @@ public class Run {
       System.out.println("\nWriting to file... ");
 
       int noSweeps = 20; // number of times to sweep through
-      int eq = 1000; // number of equilibration cycles
+      int eq = 100; // number of equilibration cycles
       int n = 1000; // number of data points to measure
       double iValue = 0.0;
+      double iValueMean = 0.0;
       double[] I = new double[noSweeps];
       double[] t = new double[noSweeps];
       double[] sigma = new double[noSweeps];
@@ -51,13 +52,16 @@ public class Run {
           SIR.sweep(box, p1, p2, p3);
           if(j%10==0) {
             iValue += SIR.I(box);
+            iValueMean += SIR.I(box) * SIR.I(box); 
+            
             n++;
           }
         }
         iValue /= n;
+        iValueMean /= n;
         I[i] = iValue;
         t[i] = tCount;
-        sigma[i] =  (iValue - (iValue * iValue)) / (box.length);
+        sigma[i] =  (iValueMean - (iValue * iValue))/ (box.length);
       }
       try {
         PrintWriter ibyn = IO.writeTo("I.dat");
