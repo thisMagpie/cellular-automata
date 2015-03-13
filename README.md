@@ -10,8 +10,14 @@ susceptible, infected and recovered states.
 
 ## Wavelike
 
-`java Run 100 0.8 0.1 0.01`
+`java Run 100 0.8 0.1 0.01 gui`
 
 ## Absorbing
 
-`java Run 100 0.3 0.5 0.2`
+`java Run 100 0.3 0.5 0.2 gui`
+
+## Equilibrium
+
+`java Run 100 0.5 0.5 1.0 gui`
+
+
