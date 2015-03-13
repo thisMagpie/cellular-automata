@@ -137,9 +137,10 @@ public class SIR {
     double I = 0.0;
     for (int i = 0; i < box.length - 1; i++) {
       for (int j = 0; j < box.length - 1; j++) {
-        I += box[i][j];
+        if (isInfected(box, i, j)) 
+          I += box[i][j];
       }
     }
-    return I /(box.length * box.length);
+    return I;
   }
 }

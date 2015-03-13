@@ -22,59 +22,64 @@ public class Run {
     double p1 = Double.parseDouble(args[1]);
     double p2 = Double.parseDouble(args[2]);
     double p3 = Double.parseDouble(args[3]);
-    System.out.println("\nWriting to file... ");
+    String choice = args[4];
 
     SIR sir = new SIR();
     sir.setLattice(size, p1, p2, p3);
-
     int[][] box = sir.getLattice();
+ 
+    if(choice.equals("plot")) {
+      System.out.println("\nWriting to file... ");
 
-    int noSweeps = 20; // number of times to sweep through
-    int eq = 100; // number of equilibration cycles
-    int n = 100; // number of data points to measure
-    double iValue = 0.0;
-    double[] I = new double[noSweeps];
-    double[] t = new double[noSweeps];
-    double tCount = 0.0;
+      int noSweeps = 20; // number of times to sweep through
+      int eq = 1000; // number of equilibration cycles
+      int n = 1000; // number of data points to measure
+      double iValue = 0.0;
+      double[] I = new double[noSweeps];
+      double[] t = new double[noSweeps];
+      double[] sigma = new double[noSweeps];
+      double tCount = 0.0;
 
-    for (int i = 0; i < noSweeps; i++) {
-      tCount += 0.1;
-      box = sweep(box, p1, p2, p3);
-      for (int j = 0; j < eq; j ++)
+      for (int i = 0; i < noSweeps; i++) {
+        tCount += 1.0;
         box = sweep(box, p1, p2, p3);
-      // Start taking measurements
-      
-      for (int j = 0; j <= n; j++) {
-        sweep(box, p1, p2, p3);
-        if(j%10==0) {
-          iValue += SIR.I(box);
-          n++;
+        for (int j = 0; j < eq; j ++)
+          box = sweep(box, p1, p2, p3);
+
+        // Start taking measurements
+        for (int j = 0; j <= n; j++) {
+          sweep(box, p1, p2, p3);
+          if(j%10==0) {
+            iValue += SIR.I(box);
+            n++;
+          }
         }
+        iValue /= n;
+        I[i] = iValue;
+        t[i] = tCount;
+        sigma[i] =  (iValue - (iValue * iValue)) / (box.length * box.length);
       }
-      iValue /= n;
-      I[i] = iValue;
-      t[i] = tCount;
-      
-    }
-    try {
+      try {
         PrintWriter ibyn = IO.writeTo("I.dat");
+        PrintWriter iSigma = IO.writeTo("sigma.dat");
         ArrayIO.writeDoubles(ibyn, t, I);
-        System.out.println("\nFile written.");
-     } catch (Exception e) {
-       e.printStackTrace();
-     }
-    
-    // Create and Show GUI
-    DrawSIRS draw = new DrawSIRS(size);
-    for (int i = 0; i < size; i++) {
+        ArrayIO.writeDoubles(iSigma, t, sigma);
+        System.out.println("\nFiles written.");
+      } catch (Exception e) {
+        e.printStackTrace();
+      }
+    } else {
+      // Create and Show GUI
+      DrawSIRS draw = new DrawSIRS(size);
+      for (int i = 0; i < size; i++) {
         for (int j = 0; j < size; j++) {
             draw.paintPixels(box[i][j], i,j);
             draw.repaint();
         }
       }
-
       boolean run = true;
       run(draw, run, size, box, p1, p2,p3);
+    }
   }
 
   public static void run(DrawSIRS draw,
