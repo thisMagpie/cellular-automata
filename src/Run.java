@@ -46,7 +46,6 @@ public class Run {
         box = SIR.sweep(box, p1, p2, p3);
         for (int j = 0; j < eq; j ++)
           box = SIR.sweep(box, p1, p2, p3);
-
         // Start taking measurements
         for (int j = 0; j <= n; j++) {
           SIR.sweep(box, p1, p2, p3);
@@ -57,11 +56,12 @@ public class Run {
             n++;
           }
         }
+        
         iValue /= n;
         iValueMean /= n;
         I[i] = iValue;
         t[i] = tCount;
-        sigma[i] =  (iValueMean - (iValue * iValue))/ (box.length);
+        sigma[i] =  (iValueMean - (iValue * iValue))/ (box.length * box.length);
       }
       try {
         PrintWriter ibyn = IO.writeTo("I.dat");

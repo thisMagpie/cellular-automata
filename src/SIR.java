@@ -144,6 +144,21 @@ public class SIR {
     return I;
   }
 
+   /**
+    * mean
+    *                   Works out the mean value of supplied data
+    * @param data
+    *                   Array of doubles holding the double values
+    *
+    * @return
+    *                  The mean of the array.
+    */
+   public static double mean(double[] data){
+       double sum = 0.0;
+       for(int i = 0; i < data.length; i++) sum += data[i];
+       return sum / (double) data.length - 1;
+   }
+
    public static int[][] sweep(int[][] box,
                                double p1,
                                double p2,

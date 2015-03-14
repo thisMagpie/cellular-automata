@@ -167,5 +167,21 @@ public class DrawSIRS extends JPanel implements ChangeListener {
       start();
     }
   }
+
+  public void run(boolean run, int[][] box, double p1, double p2, double p3){
+    while (run) {
+      int[] spins = SIR.picks(2, size);
+    box[spins[0]][spins[1]] = SIR.update(box,
+                              p1,
+                              p2,
+                              p3,
+                              spins[0],
+                              spins[1]);
+    paintPixels(box[spins[0]][spins[1]],
+             spins[0],
+             spins[1]);
+    repaint();
+    }
+  }
 }
 
