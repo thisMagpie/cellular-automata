@@ -18,6 +18,6 @@ susceptible, infected and recovered states.
 
 ## Equilibrium
 
-`java Run 100 0.5 0.5 1.0 gui`
+`java Run 100 0.7 0.7 0.7 gui`
 
 
